@@ -12,6 +12,8 @@ def createDNArarity(hierarchy):
     singleDNA = ""
 
     for i in hierarchy:
+        if i == "ZImages":
+            continue
         number_List_Of_i = []
         rarity_List_Of_i = []
         count = 0

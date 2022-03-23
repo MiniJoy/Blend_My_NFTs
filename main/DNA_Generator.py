@@ -222,8 +222,9 @@ def returnData(nftName, maxNFTs, nftsPerBatch, save_path, enableRarity):
 
       for i in hierarchy:
          # Ignore Collections with nothing in them
-         if len(hierarchy[i]) != 0:
-            hierarchyByNum.append(len(hierarchy[i]))
+         if len(hierarchy[i]) != 0 :
+            if i !="ZImages":
+               hierarchyByNum.append(len(hierarchy[i]))
          else:
             print(f"The following collection has been identified as empty: {i}")
 

@@ -6,7 +6,7 @@ import bpy
 import os
 import time
 import json
-
+import random
 
 enableGeneration = False
 colorList = []
@@ -53,9 +53,13 @@ def render_and_save_NFTs(nftName, maxNFTs, batchToGenerate, batch_json_save_path
     time_start_1 = time.time()
 
     x = 1
+    listZImages=[]
+    listZImages.clear()
     for a in BatchDNAList:
         for i in hierarchy:
             for j in hierarchy[i]:
+                if i == "ZImages":
+                    listZImages.append(j)
                 if enableGeneration:
                     """
                      Remove Color code so blender recognises the collection
@@ -84,6 +88,9 @@ def render_and_save_NFTs(nftName, maxNFTs, batchToGenerate, batch_json_save_path
             return dnaDictionary
 
         dnaDictionary = match_DNA_to_Variant(a)
+        imageLen = len(listZImages)
+        imgValue =  random.choice(listZImages)
+        dnaDictionary["ZImages"] = imgValue
         name = nftName + "_" + str(x)
 
         print(f"\n{bcolors.OK}|---Generating NFT {x}/{NFTs_in_Batch} ---|{bcolors.RESET}")
@@ -167,7 +174,7 @@ def render_and_save_NFTs(nftName, maxNFTs, batchToGenerate, batch_json_save_path
 
             for i in dnaDictionary:
                 coll = dnaDictionary[i]
-                if coll != '0':
+                if coll != '0' and "ZImages" not in i:
                     for obj in bpy.data.collections[coll].all_objects:
                         obj.select_set(True)
 

@@ -27,6 +27,7 @@ def get_combinations_from_scene():
 
    try:
       scriptIgnore = bpy.data.collections["Script_Ignore"]
+      imagesIgnore = bpy.data.collections["ZImages"]
    except:
       print(f"{bcolors.ERROR} ERROR:\nScript_Ignore collection is not in .blend file scene. Please add the Script_Ignore collection to your "
             f".blend file scene. For more information, read the README.md file.\n {bcolors.RESET}")
@@ -89,6 +90,7 @@ def get_combinations_from_scene():
             allScriptIgnore(coll)
 
    allScriptIgnore(scriptIgnore)
+   allScriptIgnore(imagesIgnore)
    listAllCollections.sort()
 
    exclude = ["_", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
@@ -206,8 +208,9 @@ def get_combinations_from_scene():
 
       for i in hierarchy:
          # Ignore Collections with nothing in them
-         if len(hierarchy[i]) != 0:
-            hierarchyByNum.append(len(hierarchy[i]))
+         if len(hierarchy[i]) != 0  :
+            if "ZImages" != i:
+               hierarchyByNum.append(len(hierarchy[i]))
          else:
             print(f"The following collection has been identified as empty: {i}")
 
